@@ -1,7 +1,13 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
-    export let data, thead, pageIndex, pageSize, searchText, sortColumn, orderBy;
+    export let data,
+        thead,
+        pageIndex,
+        pageSize,
+        searchText,
+        sortColumn,
+        orderBy;
 
     let dispatch = createEventDispatcher();
 
@@ -20,21 +26,34 @@
 
         return x1.localeCompare(x2, undefined, { numeric: true });
     });
+
     // Ara
     $: searchRows = searchText
         ? sortRows.filter((item) => {
-              return (
-                  item[0].toLocaleLowerCase().includes(searchText) ||
-                  item[1].toLocaleLowerCase().includes(searchText) ||
-                  item[2].toLocaleLowerCase().includes(searchText) ||
-                  item[3].toLocaleLowerCase().includes(searchText) ||
-                  item[4].toLocaleLowerCase().includes(searchText) ||
-                  item[5].toLocaleLowerCase().includes(searchText) ||
-                  item[5]
-                      .replace(/[^0-9a-zA-Z]/g, "")
+              let find = false;
+              let result = false;
+
+              thead.map((row, key) => {
+                  let text = item[key].toLocaleLowerCase();
+                  let number = item[key]
                       .toLocaleLowerCase()
-                      .includes(searchText)
-              );
+                      .replace(/[^0-9a-zA-Z]/g, "");
+
+                  switch (row.type) {
+                      case "number":
+                          find =
+                              text.includes(searchText) ||
+                              number.includes(searchText);
+                          break;
+
+                      default:
+                          find = text.includes(searchText);
+                          break;
+                  }
+                  if (find) result = true;
+              });
+
+              return result;
           })
         : sortRows;
 
@@ -52,6 +71,13 @@
             orderBy = "asc";
         }
         sortColumn = index;
+
+        const orderData = {
+            orderBy,
+            sortColumn
+        }
+
+        dispatch("updateOrderData", orderData);
     };
 </script>
 
@@ -64,7 +90,8 @@
                         <button
                             class:asc={sortColumn == key && orderBy == "asc"}
                             class:desc={sortColumn == key && orderBy == "desc"}
-                            on:click={() => clickHandle(key)}>{row.title}</button
+                            on:click={() => clickHandle(key)}
+                            >{row.title}</button
                         >
                     </th>
                 {/each}

@@ -1,7 +1,10 @@
 <script>
     import Datatable from "./Datatable.svelte";
+    import { data } from "./data.js";
 
-    const datatableConfig = {
+    let datatableConfig = {
+        data,
+        dataFull: data,
         pageIndex: 1,
         pageSize: 15,
         sortColumn: 0,
@@ -16,6 +19,15 @@
             { type: "number", title: "Salary" },
         ],
     };
+
+    //localStorage.clear();
+    const cacheConfig = localStorage.getItem("datatableConfig");
+    if (cacheConfig) {
+        datatableConfig = JSON.parse(cacheConfig);
+    } else {
+        // Set localStorage
+        localStorage.setItem("datatableConfig", JSON.stringify(datatableConfig));
+    }
 </script>
 
 <main>

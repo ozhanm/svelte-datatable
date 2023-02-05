@@ -3,10 +3,11 @@
     import Length from "./datatable/Length.svelte";
     import Table from "./datatable/Table.svelte";
     import Pagination from "./datatable/Pagination.svelte";
-    import { data } from "./data.js";
 
     export let config;
 
+    let data = config.data;
+    let dataFull = config.dataFull;
     let pageIndex = config.pageIndex;
     let pageSize = config.pageSize;
     let searchText = config.searchText;
@@ -21,18 +22,49 @@
         pageIndex = 1;
         searchText = e.detail;
         totalLength = !searchText ? data.length : totalLength;
+        updateLocalStorage();
     };
     const updatePageIndex = (e) => {
         pageIndex = e.detail;
+        updateLocalStorage();
     };
     const updatePageSize = (e) => {
         pageIndex = 1;
         pageSize = e.detail;
         totalPage = Math.ceil(totalLength / pageSize);
+        updateLocalStorage();
     };
     const updatePagination = (e) => {
         pageIndex = 1;
         totalLength = e.detail;
+        updateLocalStorage();
+    };
+    const updateOrderData = (e) => {
+        const o = e.detail;
+        sortColumn = o.sortColumn;
+        orderBy = o.orderBy;
+        updateLocalStorage();
+    };
+
+    const updateLocalStorage = () => {
+        let datatableConfig = {
+            data: dataFull,
+            dataFull,
+            pageIndex,
+            pageSize,
+            sortColumn,
+            orderBy,
+            searchText,
+            thead,
+        };
+
+        console.log(datatableConfig);
+
+        // Set new localStorage
+        localStorage.setItem(
+            "datatableConfig",
+            JSON.stringify(datatableConfig)
+        );
     };
 </script>
 
@@ -51,6 +83,7 @@
             {sortColumn}
             {orderBy}
             on:updatePagination={updatePagination}
+            on:updateOrderData={updateOrderData}
         />
     </div>
     {#if totalPage > 0}
