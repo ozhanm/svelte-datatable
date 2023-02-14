@@ -14,6 +14,7 @@
     let thead = config.thead;
     let sortColumn = config.sortColumn;
     let orderBy = config.orderBy;
+    let dateFormat = config.dateFormat;
 
     $: totalLength = data.length;
     $: totalPage = Math.ceil(totalLength / pageSize);
@@ -55,10 +56,9 @@
             sortColumn,
             orderBy,
             searchText,
+            dateFormat,
             thead,
         };
-
-        console.log(datatableConfig);
 
         // Set new localStorage
         localStorage.setItem(
@@ -82,6 +82,7 @@
             {searchText}
             {sortColumn}
             {orderBy}
+            {dateFormat}
             on:updatePagination={updatePagination}
             on:updateOrderData={updateOrderData}
         />

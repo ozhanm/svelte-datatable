@@ -9,7 +9,7 @@ export let data = [
     ['Rhona Davidson', 'Integration Specialist', 'Tokyo', '6200', '2010/10/14', '$327,900'],
     ['Colleen Hurst', 'Javascript Developer', 'San Francisco', '2360', '2009/09/15', '$205,500'],
     ['Sonya Frost', 'Software Engineer', 'Edinburgh', '167', '2008/12/13', '$103,600'],
-    ['Jena Gaines', 'Office Manager', 'London', '3814', '2008/12/19', '$90,560'],
+    ['Jena Gaines', 'Office Manager', 'London', '3814', '2008/11/19', '$90,560'],
     ['Quinn Flynn', 'Support Lead', 'Edinburgh', '9497', '2013/03/03', '$342,000'],
     ['Charde Marshall', 'Regional Director', 'San Francisco', '6741', '2008/10/16', '$470,600'],
     ['Haley Kennedy', 'Senior Marketing Designer', 'London', '3597', '2012/12/18', '$313,500'],

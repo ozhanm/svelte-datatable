@@ -7,7 +7,8 @@
         pageSize,
         searchText,
         sortColumn,
-        orderBy;
+        orderBy,
+        dateFormat;
 
     let dispatch = createEventDispatcher();
 
@@ -46,6 +47,12 @@
                               number.includes(searchText);
                           break;
 
+                      case "date":
+                          text =
+                              item[key].dataset.searchable.toLocaleLowerCase();
+                          find = text.includes(searchText);
+                          break;
+
                       default:
                           find = text.includes(searchText);
                           break;
@@ -63,6 +70,31 @@
         dispatch("updatePagination", searchRows.length);
     }
 
+    // Write TD text
+    const writeTable = (text, type) => {
+        let result = text;
+
+        if (type == "date") {
+            let date = new Date(text);
+            let day = ("0" + date.getDate()).slice(-2);
+            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+            let year = date.getFullYear();
+            let hour = ("0" + date.getHours()).slice(-2);
+            let minute = ("0" + date.getMinutes()).slice(-2);
+            let second = ("0" + date.getSeconds()).slice(-2);
+            result = dateFormat
+                .toLocaleLowerCase()
+                .replace("d", day)
+                .replace("m", month)
+                .replace("y", year)
+                .replace("h", hour)
+                .replace("i", minute)
+                .replace("s", second);
+        }
+
+        return result;
+    };
+
     // TH click (sort)
     const clickHandle = (index) => {
         if (sortColumn == index) {
@@ -74,8 +106,8 @@
 
         const orderData = {
             orderBy,
-            sortColumn
-        }
+            sortColumn,
+        };
 
         dispatch("updateOrderData", orderData);
     };
@@ -87,12 +119,18 @@
             <tr>
                 {#each thead as row, key}
                     <th>
-                        <button
-                            class:asc={sortColumn == key && orderBy == "asc"}
-                            class:desc={sortColumn == key && orderBy == "desc"}
-                            on:click={() => clickHandle(key)}
-                            >{row.title}</button
-                        >
+                        {#if row.sortable == true}
+                            <button
+                                class:asc={sortColumn == key &&
+                                    orderBy == "asc"}
+                                class:desc={sortColumn == key &&
+                                    orderBy == "desc"}
+                                on:click={() => clickHandle(key)}
+                                >{row.title}</button
+                            >
+                        {:else}
+                            {row.title}
+                        {/if}
                     </th>
                 {/each}
             </tr>
@@ -101,12 +139,15 @@
             {#if tableRows.length > 0}
                 {#each tableRows as row, key}
                     <tr>
-                        <td>{row[0]}</td>
-                        <td>{row[1]}</td>
-                        <td>{row[2]}</td>
-                        <td>{row[3]}</td>
-                        <td>{row[4]}</td>
-                        <td>{row[5]}</td>
+                        {#each thead as th, i}
+                            {#if thead[i].type == "date"}
+                                <td data-searchable={row[i]}
+                                    >{writeTable(row[i], thead[i].type)}</td
+                                >
+                            {:else}
+                                <td>{writeTable(row[i], thead[i].type)}</td>
+                            {/if}
+                        {/each}
                     </tr>
                 {/each}
             {:else}

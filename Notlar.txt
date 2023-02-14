@@ -1,0 +1,9 @@
+- Arama
+- Sıralama
+- Gösterilen Kayıt Sayısı
+- Pagination
+- Sıralanmayacak Sütun
+- Sütun tarih desteği
+
+TODO
+- Pagination ... desteği
