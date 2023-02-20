@@ -47,12 +47,6 @@
                               number.includes(searchText);
                           break;
 
-                      case "date":
-                          text =
-                              item[key].dataset.searchable.toLocaleLowerCase();
-                          find = text.includes(searchText);
-                          break;
-
                       default:
                           find = text.includes(searchText);
                           break;
@@ -140,13 +134,7 @@
                 {#each tableRows as row, key}
                     <tr>
                         {#each thead as th, i}
-                            {#if thead[i].type == "date"}
-                                <td data-searchable={row[i]}
-                                    >{writeTable(row[i], thead[i].type)}</td
-                                >
-                            {:else}
-                                <td>{writeTable(row[i], thead[i].type)}</td>
-                            {/if}
+                            <td>{writeTable(row[i], thead[i].type)}</td>
                         {/each}
                     </tr>
                 {/each}
