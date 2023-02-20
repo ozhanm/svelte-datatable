@@ -74,7 +74,7 @@
     const writeTable = (text, type) => {
         let result = text;
 
-        if (type == "date") {
+        if (type == "date" && text) {
             let date = new Date(text);
             let day = ("0" + date.getDate()).slice(-2);
             let month = ("0" + (date.getMonth() + 1)).slice(-2);

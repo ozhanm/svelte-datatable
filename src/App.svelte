@@ -21,7 +21,7 @@
         ],
     };
 
-    //localStorage.clear();
+    localStorage.clear();
     const cacheConfig = localStorage.getItem("datatableConfig");
     if (cacheConfig) {
         datatableConfig = JSON.parse(cacheConfig);

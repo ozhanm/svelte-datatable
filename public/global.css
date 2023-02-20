@@ -18,8 +18,9 @@ body {
 
 input,
 select {
-    box-shadow: none;
     outline: none;
+    box-shadow: none;
+    transition: all .3s;
 }
 
 input:focus {

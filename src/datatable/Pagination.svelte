@@ -16,11 +16,57 @@
         <li class:inactive={pageIndex == 1}>
             <button on:click={() => clickHandle(pageIndex - 1)}>◀</button>
         </li>
-        {#each Array(totalPage) as row, key}
-            <li class:active={key + 1 == pageIndex}>
-                <button on:click={() => clickHandle(key + 1)}>{key + 1}</button>
+
+        {#if totalPage < 6}
+            {#each Array(totalPage) as __, key}
+                <li class:active={key + 1 == pageIndex}>
+                    <button on:click={() => clickHandle(key + 1)}
+                        >{key + 1}</button
+                    >
+                </li>
+            {/each}
+        {:else}
+            <li class:active={pageIndex == 1}>
+                <button on:click={() => clickHandle(1)}>{1}</button>
             </li>
-        {/each}
+            {#if pageIndex < 4}
+                {#each Array(3) as _, key}
+                    <li class:active={pageIndex == key + 2}>
+                        <button on:click={() => clickHandle(key + 2)}
+                            >{key + 2}</button
+                        >
+                    </li>
+                {/each}
+                <li class="other">...</li>
+            {:else if pageIndex + 3 >= totalPage}
+                <li class="other">...</li>
+                {#each Array(3) as _, key}
+                    <li class:active={pageIndex == totalPage - (3 - key)}>
+                        <button
+                            on:click={() => clickHandle(totalPage - (3 - key))}
+                            >{totalPage - (3 - key)}</button
+                        >
+                    </li>
+                {/each}
+            {:else}
+                <li class="other">...</li>
+                {#each Array(3) as _, key}
+                    <li class:active={pageIndex == pageIndex + (key - 1)}>
+                        <button
+                            on:click={() => clickHandle(pageIndex + (key - 1))}
+                            >{pageIndex + (key - 1)}</button
+                        >
+                    </li>
+                {/each}
+                <li class="other">...</li>
+            {/if}
+            <li class:active={pageIndex == totalPage}>
+                <button on:click={() => clickHandle(totalPage)}
+                    >{totalPage}</button
+                >
+            </li>
+        {/if}
+
         <li class:inactive={pageIndex == totalPage}>
             <button on:click={() => clickHandle(pageIndex + 1)}>▶</button>
         </li>
@@ -52,11 +98,15 @@
                 }
                 &.inactive {
                     button {
+                        opacity: 0.35;
                         pointer-events: none;
                         background: #dfdfdf;
                         cursor: default;
-                        opacity: 0.35;
                     }
+                }
+                &.other {
+                    width: 38px;
+                    text-align: center;
                 }
                 button {
                     width: 38px;

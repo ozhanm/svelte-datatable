@@ -7,3 +7,4 @@
 
 TODO
 - Pagination ... desteği
+- Reset default config
