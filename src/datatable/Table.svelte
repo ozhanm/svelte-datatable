@@ -123,7 +123,7 @@
                                 >{row.title}</button
                             >
                         {:else}
-                            {row.title}
+                            <span>{row.title}</span>
                         {/if}
                     </th>
                 {/each}
@@ -134,15 +134,17 @@
                 {#each tableRows as row, key}
                     <tr>
                         {#each thead as th, i}
-                            <td>{writeTable(row[i], thead[i].type)}</td>
+                            <td data-label={th.title}
+                                >{writeTable(row[i], thead[i].type)}</td
+                            >
                         {/each}
                     </tr>
                 {/each}
             {:else}
                 <tr>
-                    <td colspan="6" class="notfound"
-                        >No matching records found!</td
-                    >
+                    <td colspan="6" class="notfound">
+                        No matching records found!
+                    </td>
                 </tr>
             {/if}
         </tbody>
@@ -153,7 +155,6 @@
     table {
         width: 100%;
         text-align: left;
-        margin-top: 30px;
         border-collapse: collapse;
         border-spacing: 0;
         font-size: 14px;
@@ -164,13 +165,17 @@
                     padding: 0;
                     font-size: 15px;
                     border-bottom: 1px solid #aaa;
+                    span {
+                        padding: 15px;
+                    }
                     button {
                         width: 100%;
                         padding: 15px;
-                        text-align: left;
                         border: 0;
                         font-weight: 700;
+                        text-align: left;
                         position: relative;
+                        font-size: 15px;
                         background: url(/images/sort_both.png) no-repeat;
                         background-position: 95% center;
                         cursor: pointer;
@@ -195,6 +200,32 @@
                         padding: 15px;
                         font-size: 16px;
                         text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: 767px) {
+        table {
+            thead {
+                display: none;
+            }
+            tbody {
+                tr {
+                    width: 100%;
+                    display: block;
+                    padding: 15px 0;
+                    td {
+                        font-weight: 400;
+                        position: relative;
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        padding: 6px 15px;
+                        &:before {
+                            content: attr(data-label);
+                            font-weight: 600;
+                        }
                     }
                 }
             }

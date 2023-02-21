@@ -4,7 +4,9 @@
 - Pagination
 - Sıralanmayacak Sütun
 - Sütun tarih desteği
-
-TODO
 - Pagination ... desteği
 - Reset default config
+- Responsive table
+
+TODO
+- Show columns

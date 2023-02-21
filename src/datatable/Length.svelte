@@ -1,7 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
-    export let pageSize, totalLength;
+    export let pageSize;
     let dispatch = createEventDispatcher();
 
     const changeHandle = () => {
@@ -18,12 +18,7 @@
         <option value={50}>50</option>
         <option value={100}>100</option>
     </select>
-    <span>
-        entries
-        {#if totalLength > 0}
-            <b>Total: {totalLength}</b>
-        {/if}
-    </span>
+    <span>entries</span>
 </div>
 
 <style lang="scss">
@@ -35,14 +30,6 @@
         span {
             font-size: 15px;
             line-height: 20px;
-            b {
-                font-weight: 400;
-                display: inline-block;
-                padding: 5px 8px;
-                background: #eee;
-                border-radius: 3px;
-                margin-left: 15px;
-            }
         }
         select {
             width: 70px;
@@ -52,6 +39,16 @@
             margin: 0 10px;
             border-radius: 5px;
             cursor: pointer;
+        }
+    }
+    @media (max-width: 767px) {
+        .length {
+            span {
+                display: none;
+            }
+            select {
+                margin: 0;
+            }
         }
     }
 </style>

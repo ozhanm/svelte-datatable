@@ -4,7 +4,6 @@
 
     let datatableConfig = {
         data,
-        dataFull: data,
         pageIndex: 1,
         pageSize: 15,
         sortColumn: 0,
@@ -15,23 +14,11 @@
             { type: "text", title: "Name", sortable: true },
             { type: "text", title: "Position", sortable: false },
             { type: "text", title: "Office", sortable: true },
-            { type: "number", title: "Extn.", sortable: true },
+            { type: "number", title: "Total", sortable: true },
             { type: "date", title: "Date", sortable: true },
             { type: "number", title: "Salary", sortable: true },
         ],
     };
-
-    localStorage.clear();
-    const cacheConfig = localStorage.getItem("datatableConfig");
-    if (cacheConfig) {
-        datatableConfig = JSON.parse(cacheConfig);
-    } else {
-        // Set localStorage
-        localStorage.setItem(
-            "datatableConfig",
-            JSON.stringify(datatableConfig)
-        );
-    }
 </script>
 
 <main>
@@ -40,7 +27,7 @@
 
 <style lang="scss">
     main {
-        padding: 30px;
+        padding: 0 20px;
         height: 100%;
     }
 </style>

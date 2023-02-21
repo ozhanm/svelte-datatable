@@ -75,10 +75,6 @@
 
 <style lang="scss">
     .pagination {
-        width: 100%;
-        margin: 25px 0;
-        display: flex;
-        justify-content: center;
         &.hide {
             display: none;
         }
@@ -94,6 +90,9 @@
                         pointer-events: none;
                         background: #dfdfdf;
                         cursor: default;
+                        &:hover {
+                            background: #dfdfdf;
+                        }
                     }
                 }
                 &.inactive {
@@ -102,11 +101,18 @@
                         pointer-events: none;
                         background: #dfdfdf;
                         cursor: default;
+                        &:hover {
+                            background: #dfdfdf;
+                        }
                     }
                 }
                 &.other {
                     width: 38px;
+                    height: 38px;
+                    line-height: 40px;
                     text-align: center;
+                    background: #f0f0f0;
+                    color: #222;
                 }
                 button {
                     width: 38px;
@@ -119,11 +125,31 @@
                     font-weight: 600;
                     color: #222;
                     cursor: pointer;
+                    background: #f0f0f0;
                     &:not(:last-child) {
                         margin-right: 5px;
                     }
                     &:hover {
                         background: #f3f3f3;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width: 767px) {
+        .pagination {
+            width: 100%;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            ul {
+                li {
+                    button,
+                    .other {
+                        width: 34px;
+                        height: 34px;
+                        line-height: 36px;
                     }
                 }
             }
