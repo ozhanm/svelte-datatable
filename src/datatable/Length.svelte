@@ -1,11 +1,16 @@
 <script>
     import { createEventDispatcher } from "svelte";
 
-    export let pageSize;
+    export let pageSize, thead;
+
+    let showColums = false;
     let dispatch = createEventDispatcher();
 
     const changeHandle = () => {
         dispatch("updatePageSize", pageSize);
+    };
+    const clickHandleCheck = (thKey) => {
+        dispatch("updateTheadVisible", thKey);
     };
 </script>
 
@@ -19,6 +24,19 @@
         <option value={100}>100</option>
     </select>
     <span>entries</span>
+
+    <button class="toggle" on:click={() => (showColums = !showColums)}>
+        <span>COLUMNS</span>
+    </button>
+
+    <div class="columns" class:active={showColums == true}>
+        {#each thead as row, key}
+            <button
+                class:uncheck={row.visible == false}
+                on:click={() => clickHandleCheck(key)}>{row.title}</button
+            >
+        {/each}
+    </div>
 </div>
 
 <style lang="scss">
@@ -27,6 +45,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
+        position: relative;
         span {
             font-size: 15px;
             line-height: 20px;
@@ -40,6 +59,69 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        button {
+            width: 120px;
+            height: 32px;
+            margin-left: 25px;
+            border: 0;
+            padding: 0 5px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: left;
+            padding-left: 35px;
+            background: url(/images/columns.png) #f0f0f0 no-repeat 10px center;
+            background-size: 15px;
+            cursor: pointer;
+            span {
+                font-size: 13px;
+            }
+        }
+        .columns {
+            margin: 0;
+            padding: 10px 0;
+            width: 120px;
+            position: absolute;
+            right: 0;
+            top: 36px;
+            border-radius: 5px;
+            background: #fafafa;
+            box-shadow: 0 3px 6px rgba(#000, 0.1);
+            pointer-events: none;
+            opacity: 0;
+            transition: all 0.3s;
+            &.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            button {
+                margin: 0;
+                border-radius: 0;
+                height: 25px;
+                background: none;
+                position: relative;
+                padding-left: 30px;
+                &:before {
+                    content: "";
+                    width: 30px;
+                    height: 100%;
+                    background: url(/images/check.png) no-repeat center;
+                    background-size: 13px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                }
+                &:hover {
+                    background-color: #efefef;
+                }
+                &.uncheck {
+                    color: #aaa;
+                    &:before {
+                        opacity: 0.15;
+                    }
+                }
+            }
+        }
     }
     @media (max-width: 767px) {
         .length {
@@ -48,6 +130,13 @@
             }
             select {
                 margin: 0;
+                width: 65px;
+                padding: 0 6px;
+            }
+            .toggle {
+                width: 30px;
+                margin-left: 10px;
+                background-position: center;
             }
         }
     }

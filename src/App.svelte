@@ -11,12 +11,12 @@
         searchText: "",
         dateFormat: "d.m.y",
         thead: [
-            { type: "text", title: "Name", sortable: true },
-            { type: "text", title: "Position", sortable: false },
-            { type: "text", title: "Office", sortable: true },
-            { type: "number", title: "Total", sortable: true },
-            { type: "date", title: "Date", sortable: true },
-            { type: "number", title: "Salary", sortable: true },
+            { type: "text", title: "Name", sortable: true, visible: true },
+            { type: "text", title: "Position", sortable: false, visible: true },
+            { type: "text", title: "Office", sortable: true, visible: true },
+            { type: "number", title: "Total", sortable: true, visible: true },
+            { type: "date", title: "Date", sortable: true, visible: true },
+            { type: "number", title: "Salary", sortable: true, visible: true },
         ],
     };
 </script>

@@ -107,49 +107,51 @@
     };
 </script>
 
-<div class="table">
-    <table>
-        <thead>
-            <tr>
-                {#each thead as row, key}
+<table>
+    <thead>
+        <tr>
+            {#each thead as th, key}
+                {#if th.visible == true}
                     <th>
-                        {#if row.sortable == true}
+                        {#if th.sortable == true}
                             <button
                                 class:asc={sortColumn == key &&
                                     orderBy == "asc"}
                                 class:desc={sortColumn == key &&
                                     orderBy == "desc"}
                                 on:click={() => clickHandle(key)}
-                                >{row.title}</button
+                                >{th.title}</button
                             >
                         {:else}
-                            <span>{row.title}</span>
+                            <span>{th.title}</span>
                         {/if}
                     </th>
-                {/each}
-            </tr>
-        </thead>
-        <tbody>
-            {#if tableRows.length > 0}
-                {#each tableRows as row, key}
-                    <tr>
-                        {#each thead as th, i}
+                {/if}
+            {/each}
+        </tr>
+    </thead>
+    <tbody>
+        {#if tableRows.length > 0}
+            {#each tableRows as row, key}
+                <tr>
+                    {#each thead as th, i}
+                        {#if th.visible == true}
                             <td data-label={th.title}
                                 >{writeTable(row[i], thead[i].type)}</td
                             >
-                        {/each}
-                    </tr>
-                {/each}
-            {:else}
-                <tr>
-                    <td colspan="6" class="notfound">
-                        No matching records found!
-                    </td>
+                        {/if}
+                    {/each}
                 </tr>
-            {/if}
-        </tbody>
-    </table>
-</div>
+            {/each}
+        {:else}
+            <tr>
+                <td colspan="6" class="notfound">
+                    No matching records found!
+                </td>
+            </tr>
+        {/if}
+    </tbody>
+</table>
 
 <style lang="scss">
     table {

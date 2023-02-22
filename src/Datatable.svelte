@@ -41,12 +41,17 @@
         sortColumn = o.sortColumn;
         orderBy = o.orderBy;
     };
-    const resetDefaultConfig = (e) => {
+    const resetDefaultConfig = () => {
+        console.log(config.thead);
         searchText = config.searchText;
         pageIndex = config.pageIndex;
         pageSize = config.pageSize;
         sortColumn = config.sortColumn;
         orderBy = config.orderBy;
+    };
+    const updateTheadVisible = (e) => {
+        let key = e.detail;
+        thead[key].visible = thead[key].visible == true ? false : true;
     };
 </script>
 
@@ -62,9 +67,14 @@
             on:updateSearchText={updateSearchText}
             on:resetDefaultConfig={resetDefaultConfig}
         />
-        <Length {pageSize} on:updatePageSize={updatePageSize} />
+        <Length
+            {pageSize}
+            {thead}
+            on:updatePageSize={updatePageSize}
+            on:updateTheadVisible={updateTheadVisible}
+        />
     </div>
-    <div class="container">
+    <div class="table">
         <Table
             {data}
             {thead}
@@ -93,6 +103,16 @@
 <style lang="scss">
     .datatable {
         width: 100%;
+        .top {
+            z-index: 3;
+            position: relative;
+        }
+        .bottom {
+            z-index: 2;
+        }
+        .table {
+            z-index: 1;
+        }
         .top,
         .bottom {
             display: flex;

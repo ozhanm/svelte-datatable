@@ -67,7 +67,7 @@
             }
             input {
                 margin: 0;
-                width: 220px;
+                width: 180px;
                 &::placeholder {
                     color: #666;
                 }

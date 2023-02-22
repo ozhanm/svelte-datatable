@@ -27,7 +27,7 @@
             {/each}
         {:else}
             <li class:active={pageIndex == 1}>
-                <button on:click={() => clickHandle(1)}>{1}</button>
+                <button on:click={() => clickHandle(1)}>1</button>
             </li>
             {#if pageIndex < 4}
                 {#each Array(3) as _, key}
@@ -146,7 +146,7 @@
             ul {
                 li {
                     button,
-                    .other {
+                    &.other {
                         width: 34px;
                         height: 34px;
                         line-height: 36px;
