@@ -47,6 +47,13 @@
                               number.includes(searchText);
                           break;
 
+                      case "date":
+                          let date = writeTable(text, "date");
+                          find =
+                              text.includes(searchText) ||
+                              date.includes(searchText);
+                          break;
+
                       default:
                           find = text.includes(searchText);
                           break;
