@@ -3,7 +3,6 @@
 
     export let pageSize, thead;
 
-    let showColums = false;
     let dispatch = createEventDispatcher();
 
     const changeHandle = () => {
@@ -28,12 +27,12 @@
     </div>
 
     <div class="dropdown">
-        <button class="toggle" on:click={() => (showColums = !showColums)}>
+        <button class="toggle">
             <span>COLUMNS</span>
         </button>
 
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <div class="columns" tabindex="1" class:activeeee={showColums == true}>
+        <div class="columns" tabindex="1">
             {#each thead as row, key}
                 <button
                     class:uncheck={row.visible == false}
@@ -105,10 +104,6 @@
             pointer-events: none;
             opacity: 0;
             transition: all 0.3s;
-            &.active {
-                opacity: 1;
-                pointer-events: auto;
-            }
             button {
                 margin: 0;
                 border-radius: 0;
