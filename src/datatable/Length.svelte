@@ -15,27 +15,32 @@
 </script>
 
 <div class="length">
-    <span>Show</span>
-    <select name="length" bind:value={pageSize} on:change={changeHandle}>
-        <option value={10}>10</option>
-        <option value={15}>15</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-    </select>
-    <span>entries</span>
+    <div class="select">
+        <span>Show</span>
+        <select name="length" bind:value={pageSize} on:change={changeHandle}>
+            <option value={10}>10</option>
+            <option value={15}>15</option>
+            <option value={25}>25</option>
+            <option value={50}>50</option>
+            <option value={100}>100</option>
+        </select>
+        <span>entries</span>
+    </div>
 
-    <button class="toggle" on:click={() => (showColums = !showColums)}>
-        <span>COLUMNS</span>
-    </button>
+    <div class="dropdown">
+        <button class="toggle" on:click={() => (showColums = !showColums)}>
+            <span>COLUMNS</span>
+        </button>
 
-    <div class="columns" class:active={showColums == true}>
-        {#each thead as row, key}
-            <button
-                class:uncheck={row.visible == false}
-                on:click={() => clickHandleCheck(key)}>{row.title}</button
-            >
-        {/each}
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <div class="columns" tabindex="1" class:activeeee={showColums == true}>
+            {#each thead as row, key}
+                <button
+                    class:uncheck={row.visible == false}
+                    on:click={() => clickHandleCheck(key)}>{row.title}</button
+                >
+            {/each}
+        </div>
     </div>
 </div>
 
@@ -46,18 +51,28 @@
         align-items: center;
         justify-content: flex-start;
         position: relative;
-        span {
-            font-size: 15px;
-            line-height: 20px;
+        .select {
+            span {
+                font-size: 15px;
+                line-height: 20px;
+            }
+            select {
+                width: 70px;
+                padding: 0 10px;
+                border: 1px solid #ddd;
+                height: 32px;
+                margin: 0 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
         }
-        select {
-            width: 70px;
-            padding: 0 10px;
-            border: 1px solid #ddd;
-            height: 32px;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        .dropdown {
+            &:focus-within {
+                .columns {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+            }
         }
         button {
             width: 120px;
