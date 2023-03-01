@@ -32,7 +32,7 @@
         </button>
 
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <div class="columns" tabindex="1">
+        <div class="columns" tabindex={1}>
             {#each thead as row, key}
                 <button
                     class:uncheck={row.visible == false}
