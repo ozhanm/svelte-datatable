@@ -42,7 +42,6 @@
         orderBy = o.orderBy;
     };
     const resetDefaultConfig = () => {
-        console.log(config.thead);
         searchText = config.searchText;
         pageIndex = config.pageIndex;
         pageSize = config.pageSize;
