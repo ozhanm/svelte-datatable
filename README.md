@@ -3,7 +3,7 @@
 ---
 
 # Demo
-https://svelte-datatable.ozhanmengucek.com
+https://svelte.ozhanmengucek.com/datatable/
 
 # svelte app
 
