@@ -185,14 +185,14 @@
                         text-align: left;
                         position: relative;
                         font-size: 15px;
-                        background: url(/images/sort_both.png) no-repeat;
+                        background: url(./images/sort_both.png) no-repeat;
                         background-position: 95% center;
                         cursor: pointer;
                         &.asc {
-                            background-image: url(/images/sort_asc.png);
+                            background-image: url(./images/sort_asc.png);
                         }
                         &.desc {
-                            background-image: url(/images/sort_desc.png);
+                            background-image: url(./images/sort_desc.png);
                         }
                     }
                 }
